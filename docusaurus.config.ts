@@ -48,6 +48,15 @@ const config: Config = {
         },
       } satisfies Preset.Options,
     ],
+    [
+      '@docusaurus/plugin-sitemap',
+      {
+        changefreq: 'weekly',
+        priority: 0.5,
+        ignorePatterns: ['/tags/**'],
+        filename: 'sitemap.xml',
+      }
+    ]
   ],
 
   themeConfig: {
@@ -56,8 +65,8 @@ const config: Config = {
     navbar: {
       title: 'UpdateForge Docs',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Site Logo',
+        src: 'img/logo.png',
       },
       items: [
         {
