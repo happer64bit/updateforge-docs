@@ -9,28 +9,50 @@ position: 1
 ### npm
 
 ```bash
-npm install updateforge-builder
+npm install updateforge-js
 ```
 
 ### yarn
 
 ```bash
-yarn add updateforge-builder
+yarn add updateforge-js
 ```
 
 ## Example
 
 ```js
-import SchemaBuilder from 'updateforge-builder'
+import { SchemaBuilder } from 'updateforge-js';
 
-const builder = new SchemaBuilder({
-    name: "Example",
-    // Supported values from metadata
-})
+// Create an instance of SchemaBuilder
+const builder = new SchemaBuilder();
 
-builder.add("release", {
-    ...
-})
+// Set metadata
+builder.setMetadata({
+  icon: 'icon-path',
+  name: 'My App',
+  description: 'A short description of my app',
+  author: 'John Doe',
+  source_code: 'https://github.com/example/my-app',
+  homepage: 'https://example.com',
+});
 
-console.log(builder.toOutput())
+// Add a release
+builder.addRelease({
+  version: '1.0.0',
+  type: 'major',
+  properties: { /* properties */ },
+  downloadUrl: 'https://download-url.com',
+});
+
+// Get the latest version
+const latestVersion = builder.getLatestVersion();
+console.log('Latest version:', latestVersion);
+
+// Get all versions
+const allVersions = builder.getAllVersions();
+console.log('All versions:', allVersions);
+
+// Convert data to output string
+const outputString = builder.toOutput();
+console.log('Output:', outputString);
 ```
