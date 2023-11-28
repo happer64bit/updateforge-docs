@@ -6,26 +6,31 @@ sidebar_position: 2
 
 ```javascript
 const express = require('express');
-const { SchemaBuilder } = require('updateforge-builder');
+const { SchemaBuilder } = require('updateforge-js');
 const app = express();
 
 // Replace ReleaseModel with your actual model
 const ReleaseModel = require('./models/ReleaseModel');
 
 app.get('/channel', async (req, res) => {
-  const builder = new SchemaBuilder({
-    name: 'Example',
-    // Provide supported values for metadata here
-  });
-
-  try {
-    // Assuming ReleaseModel has a method to fetch all releases
-    const releases = await ReleaseModel.find();
-
-    releases.forEach(release => {
-      builder.add('release', release);
+  const builder = new SchemaBuilder();
+  
+    builder.setMetadata({
+      icon: 'icon-path',
+      name: 'My App',
+      description: 'A short description of my app',
+      author: 'John Doe',
+      source_code: 'https://github.com/example/my-app',
+      homepage: 'https://example.com',
     });
-
+    
+  try {
+    const releases = await ReleaseModel.find();
+    
+    releases.forEach(release => {
+      builder.addRelease(release)
+    });
+    
     res.json(builder.toOutput());
   } catch (error) {
     console.error(error);
